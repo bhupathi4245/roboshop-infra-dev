@@ -9,3 +9,7 @@ module "vpc" {
 
     is_peering_requried = true
 }
+
+/* output "vpc_ids" {
+    value = module.vpc.public_subnet_ids
+} */
