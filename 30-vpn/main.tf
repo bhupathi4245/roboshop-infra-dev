@@ -8,7 +8,7 @@ resource "aws_instance" "vpn" {
     instance_type = "t3.micro"
     vpc_security_group_ids = [local.vpn_sg_id]
     subnet_id = local.public_subnet_id # Assuming the first public subnet is used.. derived in locals
-    # key_name = "daws-84s" # make sure this key exists in AWS console
+    # key_name = "daws-84s" # if going with this approach... make sure this key exists in AWS console
     key_name = aws_key_pair.openvpn.key_name 
     user_data = file("openvpn.sh")  # login info and all agreement details and other options are in this script
     tags = merge(
@@ -17,4 +17,13 @@ resource "aws_instance" "vpn" {
             Name = "${var.project}-${var.environment}-vpn"
         }
     )   
+}
+
+resource "aws_route53_record" "vpn" {
+  zone_id = var.zone_id
+  name    = "vpn-${var.environment}.${var.zone_name}"
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.vpn.public_ip]
+  allow_overwrite = true
 }
