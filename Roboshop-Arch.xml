@@ -1,0 +1,132 @@
+<mxfile host="app.diagrams.net" modified="2025-01-01T12:00:00.000Z" agent="Mozilla/5.0" version="20.5.3" editor="draw.io">
+  <diagram id="roboshop-eks-architecture" name="Roboshop Architecture">
+    <mxGraphModel dx="1500" dy="1500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2330" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- VPC BOX -->
+        <mxCell id="vpc" value="VPC 10.0.0.0/16" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#006699;fillColor=#e1f5fe;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="3000" height="2100" as="geometry"/>
+        </mxCell>
+
+        <!-- Public Subnets -->
+        <mxCell id="public-subnet-1" value="Public Subnet A (10.0.1.0/24)" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#00bcd4;fillColor=#e0f7fa;" vertex="1" parent="vpc">
+          <mxGeometry x="80" y="120" width="1350" height="480" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="public-subnet-2" value="Public Subnet B (10.0.2.0/24)" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#00bcd4;fillColor=#e0f7fa;" vertex="1" parent="vpc">
+          <mxGeometry x="1550" y="120" width="1350" height="480" as="geometry"/>
+        </mxCell>
+
+        <!-- IGW -->
+        <mxCell id="igw" value="Internet Gateway" style="shape=cloud;whiteSpace=wrap;strokeColor=#0288d1;fillColor=#bbdefb;" vertex="1" parent="vpc">
+          <mxGeometry x="1400" y="60" width="240" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- NAT Gateway -->
+        <mxCell id="nat" value="NAT Gateway" style="rounded=1;whiteSpace=wrap;strokeColor=#ff9800;fillColor=#ffe0b2;" vertex="1" parent="public-subnet-1">
+          <mxGeometry x="1100" y="330" width="180" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Load Balancer -->
+        <mxCell id="alb" value="Application Load Balancer (ALB)" style="rounded=1;whiteSpace=wrap;strokeColor=#4caf50;fillColor=#dcedc8;" vertex="1" parent="public-subnet-1">
+          <mxGeometry x="450" y="260" width="400" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- Private App Subnets -->
+        <mxCell id="private-app-a" value="Private App Subnet A (10.0.3.0/24)" style="rounded=1;whiteSpace=wrap;strokeColor=#00796b;fillColor=#e0f2f1;" vertex="1" parent="vpc">
+          <mxGeometry x="80" y="650" width="1350" height="650" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="private-app-b" value="Private App Subnet B (10.0.4.0/24)" style="rounded=1;whiteSpace=wrap;strokeColor=#00796b;fillColor=#e0f2f1;" vertex="1" parent="vpc">
+          <mxGeometry x="1550" y="650" width="1350" height="650" as="geometry"/>
+        </mxCell>
+
+        <!-- EKS Cluster -->
+        <mxCell id="eks-cluster" value="EKS Cluster (Roboshop Services)" style="rounded=1;whiteSpace=wrap;strokeColor=#1e88e5;fillColor=#bbdefb;" vertex="1" parent="private-app-a">
+          <mxGeometry x="200" y="700" width="1000" height="550" as="geometry"/>
+        </mxCell>
+
+        <!-- Microservices inside EKS -->
+        <!-- Each service box -->
+
+        <!-- Frontend -->
+        <mxCell id="frontend" value="Frontend Pod" style="rounded=1;whiteSpace=wrap;strokeColor=#8e24aa;fillColor=#f3e5f5;" vertex="1" parent="eks-cluster">
+          <mxGeometry x="50" y="80" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- catalogue -->
+        <mxCell id="catalogue" value="Catalogue Service" style="rounded=1;whiteSpace=wrap;strokeColor=#6a1b9a;fillColor=#ede7f6;" vertex="1" parent="eks-cluster">
+          <mxGeometry x="300" y="80" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- user -->
+        <mxCell id="user" value="User Service" style="rounded=1;whiteSpace=wrap;strokeColor=#6a1b9a;fillColor=#ede7f6;" vertex="1" parent="eks-cluster">
+          <mxGeometry x="550" y="80" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- cart -->
+        <mxCell id="cart" value="Cart Service" style="rounded=1;whiteSpace=wrap;strokeColor=#6a1b9a;fillColor=#ede7f6;" vertex="1" parent="eks-cluster">
+          <mxGeometry x="800" y="80" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- shipping -->
+        <mxCell id="shipping" value="Shipping Service" style="rounded=1;whiteSpace=wrap;strokeColor=#6a1b9a;fillColor=#ede7f6;" vertex="1" parent="eks-cluster">
+          <mxGeometry x="300" y="200" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- payment -->
+        <mxCell id="payment" value="Payment Service" style="rounded=1;whiteSpace=wrap;strokeColor=#6a1b9a;fillColor=#ede7f6;" vertex="1" parent="eks-cluster">
+          <mxGeometry x="550" y="200" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- dispatch -->
+        <mxCell id="dispatch" value="Dispatch Service" style="rounded=1;whiteSpace=wrap;strokeColor=#6a1b9a;fillColor=#ede7f6;" vertex="1" parent="eks-cluster">
+          <mxGeometry x="800" y="200" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Private DB Subnets -->
+        <mxCell id="private-db-a" value="Private DB Subnet A (10.0.5.0/24)" style="rounded=1;whiteSpace=wrap;strokeColor=#b71c1c;fillColor=#ffebee;" vertex="1" parent="vpc">
+          <mxGeometry x="80" y="1350" width="1350" height="650" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="private-db-b" value="Private DB Subnet B (10.0.6.0/24)" style="rounded=1;whiteSpace=wrap;strokeColor=#b71c1c;fillColor=#ffebee;" vertex="1" parent="vpc">
+          <mxGeometry x="1550" y="1350" width="1350" height="650" as="geometry"/>
+        </mxCell>
+
+        <!-- Databases -->
+
+        <mxCell id="mongo" value="MongoDB StatefulSet" style="rounded=1;whiteSpace=wrap;strokeColor=#2e7d32;fillColor=#c8e6c9;" vertex="1" parent="private-db-a">
+          <mxGeometry x="150" y="1450" width="260" height="100" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="redis" value="Redis Deployment" style="rounded=1;whiteSpace=wrap;strokeColor=#2e7d32;fillColor=#c8e6c9;" vertex="1" parent="private-db-a">
+          <mxGeometry x="450" y="1450" width="260" height="100" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="mysql" value="MySQL StatefulSet" style="rounded=1;whiteSpace=wrap;strokeColor=#2e7d32;fillColor=#c8e6c9;" vertex="1" parent="private-db-b">
+          <mxGeometry x="1700" y="1450" width="260" height="100" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="rabbit" value="RabbitMQ Deployment" style="rounded=1;whiteSpace=wrap;strokeColor=#2e7d32;fillColor=#c8e6c9;" vertex="1" parent="private-db-b">
+          <mxGeometry x="2000" y="1450" width="260" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- CI/CD -->
+
+        <mxCell id="github" value="GitHub Actions" style="rounded=1;whiteSpace=wrap;strokeColor=#0d47a1;fillColor=#bbdefb;" vertex="1" parent="1">
+          <mxGeometry x="3100" y="300" width="300" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ecr" value="Amazon ECR" style="rounded=1;whiteSpace=wrap;strokeColor=#ef6c00;fillColor=#ffe0b2;" vertex="1" parent="1">
+          <mxGeometry x="3100" y="500" width="300" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="cicd-arrow1" edge="1" source="github" target="ecr" style="endArrow=block;strokeColor=#000000;"/>
+        <mxCell id="cicd-arrow2" edge="1" source="ecr" target="eks-cluster" style="endArrow=block;strokeColor=#000000;"/>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
