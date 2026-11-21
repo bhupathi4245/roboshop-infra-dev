@@ -7,10 +7,10 @@ variable "environment" {
 }
 
 variable "zone_id" {
-    default = "Z10022823IWLDXBXJG2WQ"
+    default = "Z02756231RGA895H9LGYM"
   
 }
 
 variable "zone_name" {
-    default = "akinfotech.site"
+    default = "akinfotek.site"
 }

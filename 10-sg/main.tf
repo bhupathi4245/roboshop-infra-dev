@@ -198,7 +198,6 @@ resource "aws_security_group_rule" "redis_vpn" {
   from_port         = var.redis_ports_vpn[count.index]
   to_port           = var.redis_ports_vpn[count.index]
   protocol          = "tcp"
-  # cidr_blocks       = ["0.0.0.0/0"]
   source_security_group_id = module.vpn.sg_id
   security_group_id = module.redis.sg_id
 }
@@ -214,7 +213,6 @@ resource "aws_security_group_rule" "redis_bastion" {
 }
 
 resource "aws_security_group_rule" "redis_user" {
-  count = length(var.redis_ports_vpn)
   type              = "ingress"
   from_port         = 6379
   to_port           = 6379
@@ -224,7 +222,6 @@ resource "aws_security_group_rule" "redis_user" {
 }
 
 resource "aws_security_group_rule" "redis_cart" {
-  count = length(var.redis_ports_vpn)
   type              = "ingress"
   from_port         = 6379
   to_port           = 6379
@@ -255,7 +252,6 @@ resource "aws_security_group_rule" "mysql_bastion" {
 }
 
 resource "aws_security_group_rule" "mysql_shipping" {
-  count = length(var.mysql_ports_vpn)
   type              = "ingress"
   from_port         = 3306
   to_port           = 3306
@@ -286,7 +282,6 @@ resource "aws_security_group_rule" "rabbitmq_bastion" {
 }
 
 resource "aws_security_group_rule" "rabbitmq_payment" {
-  count = length(var.rabbitmq_ports_vpn)
   type              = "ingress"
   from_port         = 5672
   to_port           = 5672
